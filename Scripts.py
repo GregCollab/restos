@@ -49,7 +49,7 @@ def Random_restaurant(input_city = "Leuven", is_open = False):
     else:
         result = restaurant_roulette(input_city)
     randint = random.randint(0,len(result))
-    return result[randint][0]
+    return result[randint]
 
 def Check_if_open(input_city):
     open_restaurants = []
