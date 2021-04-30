@@ -40,6 +40,7 @@ def City_Grabber(input_city):
     for item in html.find("#search"):
         link = item.find(".g")[0]
         first_link = link.find("a")[0].attrs["href"]
+        first_link = re.sub("/en/","/nl-be/", first_link)
     return first_link
     
 def Random_restaurant(input_city = "Leuven", is_open = False):
