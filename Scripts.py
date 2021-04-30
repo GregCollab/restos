@@ -66,4 +66,3 @@ def Check_if_open(input_city):
             open_restaurants.append(item)
     return open_restaurants
 
-Random_restaurant("gent")

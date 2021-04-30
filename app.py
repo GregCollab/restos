@@ -5,7 +5,7 @@ import dash_core_components as dcc
 import gunicorn
 
 import dash_bootstrap_components as dbc
-from Scripts import Random_restaurant
+from Scripts import Random_restaurant,City_Grabber
 
 from dash.dependencies import Input,Output,State
 
@@ -16,7 +16,7 @@ server = app.server
 dropdown = dcc.Dropdown(id="Open_or_not", options=[{"label":"Only Open Restaurants","value":"True"},{"label":"Also closed restaurants","value":"False"}], value = "False")
 text_input = html.Div([dbc.Input(id="input",placeholder="Choose your city!",type="text",debounce=True,autoFocus =True,value="Leuven")])
 
-
+hold_val = Random_restaurant("Leuven")
 
 
 
@@ -24,7 +24,7 @@ text_input = html.Div([dbc.Input(id="input",placeholder="Choose your city!",type
 app.layout = dbc.Container([html.Div(children = [html.H1(children = "Random Restaurants"),
 html.H2(children = "Using the data from Deliveroo")], style = {'textAlign':'center', 'color':'blue'}),
     html.Hr(),
-    dbc.Row([dbc.Col(dropdown,md=2),dbc.Col(html.Div(children = [html.P(id="Go_here",children = "Generating a restaurant")]),md=10)]),
+    dbc.Row([dbc.Col(dropdown,md=2),dbc.Col(html.Div(children = [html.P(id="Go_here",children = hold_val)]),md=10)]),
     dbc.Row([dbc.Col(text_input,md=10),html.Button(id="submit",type="submit",children="Again!",n_clicks=1)])
     ],fluid=True)
 
@@ -36,11 +36,11 @@ html.H2(children = "Using the data from Deliveroo")], style = {'textAlign':'cent
     [
         Input("input","value"),
         Input("Open_or_not","value"),
-        Input("submit","n_clicks")
+
     ],
 )
-def what_restaurant(input_city,is_open,n):
-    return Random_restaurant(input_city,is_open,n)
+def what_restaurant(input_city,is_open):
+    return City_Grabber(input_city)
 
 
 
