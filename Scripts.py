@@ -7,6 +7,7 @@ import random
 def restaurant_roulette(input_city):
     session = HTMLSession()
     url = City_Grabber(input_city)
+    print(url)
     r = session.get(url)
     html = r.html
     if r.status_code != 200:
