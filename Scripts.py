@@ -39,13 +39,17 @@ def City_Grabber(input_city):
     r = session.get(url)
     html = r.html
     for item in html.find("#search"):
-        link = item.find(".g")[0]
-        first_link = link.find("a")[0].attrs["href"]
-        first_link = re.sub("/en/","/nl-be/", first_link)
-    return first_link
+        link = item.find(".g")
+        for item in link:
+            link_of_item = item.find("a")[0].attrs["href"]
+            if re.findall("deliveroo.be/nl-be/restaurants",link_of_item) != []:
+                return link_of_item
+        #first_link = link.find("a")[0].attrs["href"]
+        #first_link = re.sub(".be/.*/rest",".be/nl-be/rest", first_link)
+            continue
     
-def Random_restaurant(input_city = "Leuven", is_open = False):
-    if is_open:
+def Random_restaurant(input_city, digit=1, is_open = "False"):
+    if is_open == "False":
         result = Check_if_open(input_city)
     else:
         result = restaurant_roulette(input_city)
